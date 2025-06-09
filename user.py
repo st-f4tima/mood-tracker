@@ -6,6 +6,9 @@ class User():
     def __init__(self, user_id, password):
         self.__user_id = user_id
         self.__password = password
+
+    def get_user_id(self):
+        return self.__user_id
     
     def create_account(self):
         hash_pass = hash_password(self.__password)
@@ -18,11 +21,13 @@ class User():
                 writer.writerow(['user_id', 'password'])  # add header once
             writer.writerow(user_info)
         
-        print("Account created successfully!")
+        print("\nAccount created successfully!")
 
-        user_filename = f'{self.__user_id}.csv'
+        user_filename = f'data/moods/{self.__user_id}.csv'
         with open(user_filename, 'a', newline='') as file:
             pass
+        
+        input("Press Enter to go back to the main menu...")
 
     def log_in(self):
         hashed_input_password = hash_password(self.__password)
@@ -40,9 +45,12 @@ class User():
         except FileNotFoundError:
             print("User data file not found.")
             return False
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def account_management():
     while True:
+        clear_screen()
         print("\n─────────────🙂 Mood Tracker 🙂─────────────\n")
         print("Choose an option:")
         print("1. Create Account")
@@ -57,7 +65,9 @@ def account_management():
                 print("Error: Invalid option. Please choose a number between 1 and 3.\n")
 
         if choice == '1':
-            user_id = input('\nInput a user-ID: ').strip()
+            clear_screen()
+            print("\n─────────────🙂 Sign In 🙂─────────────\n")
+            user_id = input('Input a user-ID: ').strip()
             while True: 
                 password = input('Enter your password: ').strip()
                 confirm_password = input('Confirm your password: ').strip()
@@ -70,7 +80,9 @@ def account_management():
             new_user.create_account()
         
         elif choice == '2':
-            user_id = input('\nInput a user-ID: ').strip()
+            clear_screen()
+            print("─────────────🙂 Log In 🙂─────────────\n")
+            user_id = input('Input a user-ID: ').strip()
             password = input('Enter your password: ').strip()
 
             user = User(user_id, password)
