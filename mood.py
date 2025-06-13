@@ -37,6 +37,7 @@ class Entry:
 
                 print("\nMood entry saved successfully!")
                 input("Press Enter to return to the main menu...")
+                # TODO: Fix this... entries are not saving
         
     def view_specific_entry(self):
         # TODO: Add this method
@@ -49,7 +50,6 @@ class Entry:
     def get_average_mood(self):
         # TODO: Add this method
         pass
-
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -85,7 +85,7 @@ def main_menu(user):
                 print('1. 🥲  (Very Sad)')
 
                 while True:
-                    mood = input('Enter your choice (1-5): ').strip()
+                    mood = input('\nEnter your choice (1-5): ').strip()
                     if mood.isdigit() and 1 <= int(mood) <= 5:
                         break
                     else:
@@ -100,14 +100,24 @@ def main_menu(user):
 
                 message = input('🗨️  Message (optional): ').strip()
 
-
                 entry = Entry(mood, tags, message)
                 entry.set_user_id(user)
                 entry.save_entry()
+                # TODO: Fix the loop
 
         elif choice == '2':
             clear_screen()
             print("\n─────────────🙂 Search specific dates 🙂─────────────\n")
+        elif choice == '3':
+            # TODO: Implement feature to view all mood entries
+            pass
+        elif choice == '4':
+            # TODO: Implement feature to calculate and display average mood
+            pass
+        elif choice == '5':
+            # TODO: Add exit logic or return to main menu
+            pass
+        
 
 
 

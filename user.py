@@ -40,13 +40,14 @@ class User():
                 for row in reader:
                     saved_user_id, saved_password = row
                     if self.user_id == saved_user_id and hashed_input_password == saved_password:
-                        print("Login successful!")
+                        print("\nLogin successful!")
                         input("Press Enter to proceed...")
                         return True
                     
-                print("Login failed: Incorrect user ID or password.")
+                print("\nLogin failed: Incorrect user ID or password.")
                 input("Press Enter to try again...")
                 return False
+            
         except FileNotFoundError:
             print("User data file not found.")
             input("Press Enter to try again...")
@@ -99,9 +100,10 @@ def account_management():
                 if user.log_in():
                     return user.user_id
                 else:
+                    # TODO: Add an optiin to quit
                     print("Login unsuccessful. Please try again.\n")
 
                     
         elif choice == '3':
-            print("Thank you for using Mood Tracker. Goodbye!")
-            break
+            print("\nThank you for using Mood Tracker. Goodbye!")
+            quit()
