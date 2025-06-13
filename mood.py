@@ -1,6 +1,5 @@
 import csv
 import os
-from user import User
 from utils import cipher_suite
 from datetime import datetime
 
@@ -17,8 +16,8 @@ class Entry:
         date_str = date_str.lstrip("0")               
         self.date = date_str.lower().replace("am", "am").replace("pm", "pm")
         
-    def set_user_id(self, obj):
-        self.user_id = obj.get_user_id()
+    def set_user_id(self, user_id):
+        self.user_id = user_id
     
     def save_entry(self):
         filename = f'data/moods/{self.user_id}.csv'
@@ -39,11 +38,81 @@ class Entry:
                 print("\nMood entry saved successfully!")
                 input("Press Enter to return to the main menu...")
         
-        def view_specfic_entry(self):
-            pass
+    def view_specific_entry(self):
+        # TODO: Add this method
+        pass
 
-        def view_all(self):
-            pass
+    def view_all(self):
+        # TODO: Add this method
+        pass
 
-        def get_average_mood(self):
-            pass
+    def get_average_mood(self):
+        # TODO: Add this method
+        pass
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main_menu(user):
+    while True:
+        clear_screen()
+        print("\n─────────────🙂 Main Menu 🙂─────────────\n")
+        print(f'Welcome back, {user}!')
+        print("\nChoose an option:")
+        print("1. Set mood today")
+        print("2. Search specific dates")
+        print("3. View all mood entries")
+        print("4. Get average mood")
+        print("5. Quit")
+
+        while True: 
+            choice = input('Enter your choice (1-5): ').strip()
+            if choice.isdigit() and 1 <= int(choice) <= 5:
+                break
+            else:
+                print("Error: Invalid option. Please choose a number between 1 and 5.\n")
+
+        if choice == '1':
+            while True:
+                clear_screen()
+                print("\n─────────────🙂 Set Mood 🙂─────────────\n")
+                print(f'💗 How are you, {user}?\n')
+                print('5. 😄  (Very Happy)')
+                print('4. 😊  (Happy)')
+                print('3. 🫤  (Neutral)')
+                print('2. 😓  (Sad)')
+                print('1. 🥲  (Very Sad)')
+
+                while True:
+                    mood = input('Enter your choice (1-5): ').strip()
+                    if mood.isdigit() and 1 <= int(mood) <= 5:
+                        break
+                    else:
+                        print("Error: Invalid option. Please choose a number between 1 and 5.\n")
+
+                while True:
+                    tags = input('\n🏷️  Tags (use #tag format): ').strip()
+                    if '#' in tags:
+                        break
+                    else:
+                        print("Error: Tags must contain '#' symbol. Please try again.\n")
+
+                message = input('🗨️  Message (optional): ').strip()
+
+
+                entry = Entry(mood, tags, message)
+                entry.set_user_id(user)
+                entry.save_entry()
+
+        elif choice == '2':
+            clear_screen()
+            print("\n─────────────🙂 Search specific dates 🙂─────────────\n")
+
+
+
+
+
+
+
+
