@@ -36,14 +36,17 @@ class Entry:
             writer.writerow([encrypted_date, encrypted_mood, encrypted_tags, encrypted_message])
 
             print("\nMood entry saved successfully!")
-        
-    def view_specific_entry(self):
-        # TODO: Add this method
-        pass
 
     def view_all(self):
-        # TODO: Add this method
-        pass
+        filename = f'data/moods/{self.user_id}.csv'
+        if not os.path.exists(filename):
+            print("❌ No mood entries found.")
+            return
+        
+        with open(filename, 'r', newline='', encoding='utf-8') as file:
+            reader = reader(file)
+        # TODO: Finish this
+            
 
     def get_average_mood(self):
         # TODO: Add this method
@@ -59,10 +62,9 @@ def main_menu(user):
         print(f'Welcome back, {user}!')
         print("\nChoose an option:")
         print("1. Set mood today")
-        print("2. Search specific dates")
-        print("3. View all mood entries")
-        print("4. Get average mood")
-        print("5. Quit")
+        print("2. View all mood entries")
+        print("3. Get average mood")
+        print("4. Quit")
 
         while True: 
             choice = input('Enter your choice (1-5): ').strip()
@@ -111,8 +113,7 @@ def main_menu(user):
                 entry = Entry(mood, tags, message)
                 entry.set_user_id(user)
                 entry.save_entry()
-                # TODO: Fix the loop
-                input("\nPress Enter to return to the main menu...")
+                input("Press Enter to return to the main menu...")
                 break
 
         elif choice == '2':

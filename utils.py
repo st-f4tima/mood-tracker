@@ -1,4 +1,5 @@
 import csv
+import os
 from cryptography.fernet import Fernet
 import hashlib
 
@@ -12,5 +13,15 @@ def verify_password(stored_hashed_password, entered_password):
     return hashed_entered == stored_hashed_password
 
 # entries
+def load_key():
+    if os.path.exists('secret.key'):
+        with open('secret.key', 'rb') as f:
+            return f.read()
+    else:
+        key = Fernet.generate_key()
+        with open('secret.key', 'wb') as f:
+            f.write(key)
+        return key
 key = Fernet.generate_key()
 cipher_suite = Fernet(key)
+
