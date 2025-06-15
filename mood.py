@@ -4,7 +4,7 @@ from utils import cipher_suite
 from datetime import datetime
 
 class Entry:
-    def __init__(self, mood, tags, message=""):
+    def __init__(self, mood, tags="", message=""):
         self.mood = mood
         self.tags = tags
         self.message = message
@@ -28,16 +28,14 @@ class Entry:
             if not file_exists:
                 writer.writerow(["Date", "Mood", "Tags", "Message"]) 
 
-                encrypted_date = cipher_suite.encrypt(self.date.encode()).decode()
-                encrypted_mood = cipher_suite.encrypt(self.mood.encode()).decode()
-                encrypted_tags = cipher_suite.encrypt(self.tags.encode()).decode()
-                encrypted_message= cipher_suite.encrypt(self.message.encode()).decode()
+            encrypted_date = cipher_suite.encrypt(self.date.encode()).decode()
+            encrypted_mood = cipher_suite.encrypt(self.mood.encode()).decode()
+            encrypted_tags = cipher_suite.encrypt(self.tags.encode()).decode()
+            encrypted_message= cipher_suite.encrypt(self.message.encode()).decode()
 
-                writer.writerow([encrypted_date, encrypted_mood, encrypted_tags, encrypted_message])
+            writer.writerow([encrypted_date, encrypted_mood, encrypted_tags, encrypted_message])
 
-                print("\nMood entry saved successfully!")
-                input("Press Enter to return to the main menu...")
-                # TODO: Fix this... entries are not saving
+            print("\nMood entry saved successfully!")
         
     def view_specific_entry(self):
         # TODO: Add this method
@@ -87,6 +85,16 @@ def main_menu(user):
                 while True:
                     mood = input('\nEnter your choice (1-5): ').strip()
                     if mood.isdigit() and 1 <= int(mood) <= 5:
+                        if mood == '5':
+                            mood = '5. 😄  (Very Happy)'
+                        elif mood == '4':
+                            mood = '4. 😊  (Happy)'
+                        elif mood == '3':
+                            mood = '3. 🫤  (Neutral)'
+                        elif mood == '2':
+                            mood = '2. 😓  (Sad)'
+                        else:
+                            mood = '1. 🥲  (Very Sad)'
                         break
                     else:
                         print("Error: Invalid option. Please choose a number between 1 and 5.\n")
@@ -104,6 +112,8 @@ def main_menu(user):
                 entry.set_user_id(user)
                 entry.save_entry()
                 # TODO: Fix the loop
+                input("\nPress Enter to return to the main menu...")
+                break
 
         elif choice == '2':
             clear_screen()

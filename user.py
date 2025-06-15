@@ -24,6 +24,7 @@ class User():
         
         print("\nAccount created successfully!")
 
+        os.makedirs('data/moods', exist_ok=True)
         user_filename = f'data/moods/{self.user_id}.csv'
         with open(user_filename, 'a', newline='') as file:
             pass
@@ -38,6 +39,8 @@ class User():
                 next(reader, None) 
 
                 for row in reader:
+                    if len(row) != 2:
+                        continue  
                     saved_user_id, saved_password = row
                     if self.user_id == saved_user_id and hashed_input_password == saved_password:
                         print("\nLogin successful!")
@@ -45,12 +48,10 @@ class User():
                         return True
                     
                 print("\nLogin failed: Incorrect user ID or password.")
-                input("Press Enter to try again...")
                 return False
             
         except FileNotFoundError:
             print("User data file not found.")
-            input("Press Enter to try again...")
             return False
         
 def clear_screen():
@@ -100,9 +101,10 @@ def account_management():
                 if user.log_in():
                     return user.user_id
                 else:
-                    # TODO: Add an optiin to quit
-                    print("Login unsuccessful. Please try again.\n")
-
+                    try_again = input("Press Enter to try again or type 'q' to quit: ").strip().lower()
+                    if try_again == 'q':
+                        print("\nThank you for using Mood Tracker. Goodbye!")
+                        quit()
                     
         elif choice == '3':
             print("\nThank you for using Mood Tracker. Goodbye!")
