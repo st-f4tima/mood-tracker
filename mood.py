@@ -4,7 +4,7 @@ from utils import cipher_suite
 from datetime import datetime
 
 class Entry:
-    def __init__(self, mood, tags="", message=""):
+    def __init__(self, mood="", tags="", message=""):
         self.mood = mood
         self.tags = tags
         self.message = message
@@ -20,13 +20,13 @@ class Entry:
         self.user_id = user_id
     
     def save_entry(self):
-        filename = f'data/moods/{self.user_id}.csv'
+        filename = f'data/moods/{self.user_id}_entries.csv'
         file_exists = os.path.exists(filename)
 
         with open(filename, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            if not file_exists:
-                writer.writerow(["Date", "Mood", "Tags", "Message"]) 
+            if not file_exists or os.path.getsize(filename) == 0:
+                writer.writerow(["Date", "Mood", "Tags", "Message"])
 
             encrypted_date = cipher_suite.encrypt(self.date.encode()).decode()
             encrypted_mood = cipher_suite.encrypt(self.mood.encode()).decode()
@@ -38,15 +38,37 @@ class Entry:
             print("\nMood entry saved successfully!")
 
     def view_all(self):
-        filename = f'data/moods/{self.user_id}.csv'
+        filename = f'data/moods/{self.user_id}_entries.csv'
+
         if not os.path.exists(filename):
             print("❌ No mood entries found.")
             return
-        
+
         with open(filename, 'r', newline='', encoding='utf-8') as file:
-            reader = reader(file)
-        # TODO: Finish this
-            
+            csv_reader = csv.reader(file)
+            headers = next(csv_reader, None)  
+
+            found_any = False
+            for idx, row in enumerate(csv_reader, start=1):
+                if len(row) != 4:
+                    print(f"⚠️ Skipped malformed entry at line {idx + 1}")
+                    continue
+
+                try:
+                    decrypted_row = [cipher_suite.decrypt(col.encode()).decode() for col in row]
+                    print(f"Entry #{idx}")
+                    print(f"📅  Date:    {decrypted_row[0]}")
+                    print(f"🙂  Mood:    {decrypted_row[1]}")
+                    print(f"🏷️   Tags:    {decrypted_row[2]}")
+                    print(f"🗨️   Message: {decrypted_row[3]}\n")
+                    print("-" * 48)
+                    found_any = True
+                except Exception as e:
+                    print(f"❌ Failed to decrypt entry #{idx}: {e}")
+
+            if not found_any:
+                print("📭 No valid mood entries to display.")
+
 
     def get_average_mood(self):
         # TODO: Add this method
@@ -118,17 +140,19 @@ def main_menu(user):
 
         elif choice == '2':
             clear_screen()
-            print("\n─────────────🙂 Search specific dates 🙂─────────────\n")
+            print("\n─────────────📘 All Mood Entries 📘─────────────\n")
+            entry = Entry("","","")
+            entry.set_user_id(user)
+            entry.view_all()
+            input("\nPress Enter to return to the main menu...")
+
         elif choice == '3':
             # TODO: Implement feature to view all mood entries
             pass
         elif choice == '4':
             # TODO: Implement feature to calculate and display average mood
             pass
-        elif choice == '5':
-            # TODO: Add exit logic or return to main menu
-            pass
-        
+
 
 
 

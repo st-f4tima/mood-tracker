@@ -14,14 +14,15 @@ def verify_password(stored_hashed_password, entered_password):
 
 # entries
 def load_key():
-    if os.path.exists('secret.key'):
-        with open('secret.key', 'rb') as f:
+    if os.path.exists("secret.key"):
+        with open("secret.key", "rb") as f:
             return f.read()
     else:
         key = Fernet.generate_key()
-        with open('secret.key', 'wb') as f:
+        with open("secret.key", "wb") as f:
             f.write(key)
         return key
-key = Fernet.generate_key()
+
+key = load_key()
 cipher_suite = Fernet(key)
 

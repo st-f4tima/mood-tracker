@@ -25,7 +25,7 @@ class User():
         print("\nAccount created successfully!")
 
         os.makedirs('data/moods', exist_ok=True)
-        user_filename = f'data/moods/{self.user_id}.csv'
+        user_filename = f'data/moods/{self.user_id}_entries.csv'
         with open(user_filename, 'a', newline='') as file:
             pass
         
@@ -76,7 +76,7 @@ def account_management():
 
         if choice == '1':
             clear_screen()
-            print("\n─────────────🙂 Sign In 🙂─────────────\n")
+            print("\n─────────────👤 Sign In 👤─────────────\n")
             user_id = input('Input a user-ID: ').strip()
             while True: 
                 password = input('Enter your password: ').strip()
@@ -92,7 +92,7 @@ def account_management():
         elif choice == '2':
             while True:
                 clear_screen()
-                print("─────────────🙂 Log In 🙂─────────────\n")
+                print("─────────────👤 Log In 👤─────────────\n")
                 user_id = input('Input a user-ID: ').strip()
                 password = input('Enter your password: ').strip()
 
@@ -101,10 +101,14 @@ def account_management():
                 if user.log_in():
                     return user.user_id
                 else:
-                    try_again = input("Press Enter to try again or type 'q' to quit: ").strip().lower()
+                    try_again = input("Press Enter to try again, type 'm' to return to the menu, or 'q' to quit: ").strip().lower()
                     if try_again == 'q':
                         print("\nThank you for using Mood Tracker. Goodbye!")
                         quit()
+                    elif try_again == "m":
+                        break
+                    else:
+                        continue
                     
         elif choice == '3':
             print("\nThank you for using Mood Tracker. Goodbye!")
