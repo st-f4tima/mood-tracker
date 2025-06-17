@@ -128,8 +128,8 @@ def main_menu(user):
         print("4. Quit")
 
         while True: 
-            choice = input('Enter your choice (1-5): ').strip()
-            if choice.isdigit() and 1 <= int(choice) <= 5:
+            choice = input('Enter your choice (1-4): ').strip()
+            if choice.isdigit() and 1 <= int(choice) <= 4:
                 break
             else:
                 print("Error: Invalid option. Please choose a number between 1 and 5.\n")
