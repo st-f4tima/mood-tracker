@@ -1,13 +1,12 @@
 ![baymax logo](readme-images/baymax.jpg)
 
 <h3 align="center">
-  <a href="#📦-features">Features</a> •
-  <a href="#🛠️-requirements">Requirements</a> •
-  <a href="#🚀-usage">Usage</a> •
-  <a href="#🧪-example-usage">Example Usage</a> •
-  <a href="#👤-credits">Credits</a> •
-  <a href="#⚖️license">License</a> •
-  
+  <a href="#-features">📦 Features</a> •
+  <a href="#-requirements">🛠️ Requirements</a> •
+  <a href="#-installation">🚀 Installation</a> •
+  <a href="#-usage">🧪 Usage</a> •
+  <a href="#-credits">👥 Credits</a> •
+  <a href="#-license">⚖️ License</a>
 </h3>
 
 <h1 align="center">
@@ -34,7 +33,7 @@
     pip install cryptography
     ```
 
-## 🚀 Usage
+##  Installation<
 1. Clone the repository or download the files manually
 2. Project Folder Structure:
     ```bash
@@ -56,7 +55,7 @@
     python main.py
     ```
 
-## 🧪 Example Usage
+## 🧪 Usage
 1. Account Management
 
     ```bash
@@ -115,9 +114,9 @@
 6. Quit the App
     - Choose option 4 or press Ctrl + C to stop the program
 
-## 👤 Credits
+## 👥 Credits<
 Created by **Fatima Pura** ✨  
 >A first-year Computer Science student currently building a strong foundation in Python. 
 
-## 📜 License 
+## ⚖️ License<
 This project is licensed under the **[MIT License](https://opensource.org/licenses/MIT)** - see the [LICENSE](LICENSE) file for details.
