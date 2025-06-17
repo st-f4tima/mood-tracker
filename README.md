@@ -33,7 +33,7 @@
     pip install cryptography
     ```
 
-##  Installation<
+## 🚀 Installation
 1. Clone the repository or download the files manually
 2. Project Folder Structure:
     ```bash
@@ -114,9 +114,9 @@
 6. Quit the App
     - Choose option 4 or press Ctrl + C to stop the program
 
-## 👥 Credits<
+## 👥 Credits
 Created by **Fatima Pura** ✨  
 >A first-year Computer Science student currently building a strong foundation in Python. 
 
-## ⚖️ License<
+## ⚖️ License
 This project is licensed under the **[MIT License](https://opensource.org/licenses/MIT)** - see the [LICENSE](LICENSE) file for details.
