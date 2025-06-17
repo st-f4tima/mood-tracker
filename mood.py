@@ -71,8 +71,47 @@ class Entry:
 
 
     def get_average_mood(self):
-        # TODO: Add this method
-        pass
+        mood_values = []
+        filename = f'data/moods/{self.user_id}_entries.csv'
+
+        if not os.path.exists(filename):
+            print("❌ No mood entries found.")
+            return None
+        
+        with open(filename, 'r', newline='', encoding='utf-8') as file:
+            csv_reader = csv.reader(file)
+            next(csv_reader)  
+
+            for row in csv_reader:
+                if len(row) < 2:
+                    continue
+
+                try:
+                    encrypted_mood = row[1]
+                    decrypted_mood = cipher_suite.decrypt(encrypted_mood.encode()).decode().strip()
+
+                    if decrypted_mood.startswith('5'):
+                        mood_values.append(5)
+                    elif decrypted_mood.startswith('4'):
+                        mood_values.append(4)
+                    elif decrypted_mood.startswith('3'):
+                        mood_values.append(3)
+                    elif decrypted_mood.startswith('2'):
+                        mood_values.append(2)
+                    elif decrypted_mood.startswith('1'):
+                        mood_values.append(1)
+                    else:
+                        mood_values.append(0)
+                except Exception as e:
+                    print(f"⚠️ Error decrypting mood: {e}")
+        
+        if not mood_values:
+            return None
+
+        return sum(mood_values) / len(mood_values)
+
+
+
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -147,12 +186,57 @@ def main_menu(user):
             input("\nPress Enter to return to the main menu...")
 
         elif choice == '3':
-            # TODO: Implement feature to view all mood entries
-            pass
-        elif choice == '4':
-            # TODO: Implement feature to calculate and display average mood
-            pass
+            clear_screen()
+            print("\n─────────────📈📊 Mood Summary 📈📊─────────────\n")
+            
+            entry = Entry("", "", "")
+            entry.set_user_id(user)
+            average = entry.get_average_mood()
 
+            if average is None:
+                print("No mood data found. Please add some entries first.")
+            else:
+                average = float(average)
+
+                def get_mood_label(avg):
+                    if avg >= 4.5:
+                        return "😄 Very Happy"
+                    elif avg >= 3.5:
+                        return "🙂 Happy"
+                    elif avg >= 2.5:
+                        return "😐 Okay"
+                    elif avg >= 1.5:
+                        return "😟 Sad"
+                    else:
+                        return "😢 Very Sad"
+
+                mood_label = get_mood_label(average)
+
+                scale = ["😢", "😟", "😐", "🙂", "😄"]
+                index = min(4, max(0, round(average) - 1))
+                arrow_line = "     " * index + " ↑"
+                interpretation = {
+                    "😄 Very Happy": "You're in a great place emotionally!",
+                    "🙂 Happy": "You're doing well—keep it up!",
+                    "😐 Okay": "You're feeling neutral. That’s totally okay.",
+                    "😟 Sad": "It seems like you've been feeling a bit low.",
+                    "😢 Very Sad": "Hang in there—better days are coming!"
+                }
+
+                print(f"🟢 Average Mood Score : {average:.1f}")
+                print(f"{mood_label.split()[0]} Mood Interpretation : {mood_label.split(' ', 1)[1]}\n")
+                print("Mood Scale:")
+                print("   ".join(scale))
+                print(arrow_line)
+                print("     " * index + "Your Mood")
+                print("\n" + interpretation[mood_label])
+                print("──────────────────────────────────────────────\n")
+
+                input("Press Enter to return to the main menu...")
+
+        elif choice == '4':
+            print(f"\nThank you for using Mood Tracker, {user}. Goodbye!")
+            quit()
 
 
 
