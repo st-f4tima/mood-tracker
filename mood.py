@@ -111,8 +111,6 @@ class Entry:
         return sum(mood_values) / len(mood_values)
 
 
-
-
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
