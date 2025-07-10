@@ -118,5 +118,4 @@
 Created by **Fatima Pura** ✨  
 >A first-year Computer Science student currently building a strong foundation in Python. 
 
-## ⚖️ License
-This project is licensed under the **[MIT License](https://opensource.org/licenses/MIT)** - see the [LICENSE](LICENSE) file for details.
+

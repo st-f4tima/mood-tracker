@@ -1,6 +1,6 @@
 import csv
 import os
-from utils import cipher_suite
+from mood_tracker.utils import cipher_suite
 from datetime import datetime
 
 class Entry:

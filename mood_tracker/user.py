@@ -1,7 +1,7 @@
 import csv
 import os
-from utils import hash_password
-from mood import main_menu
+from mood_tracker.utils import hash_password
+from mood_tracker.mood import main_menu
 
 class User():
     def __init__(self, user_id, password):

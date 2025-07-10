@@ -1,5 +1,5 @@
-from user import account_management
-from mood import main_menu
+from mood_tracker.user import account_management
+from mood_tracker.mood import main_menu
 
 def main():
     
