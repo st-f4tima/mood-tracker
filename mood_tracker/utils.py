@@ -2,6 +2,14 @@ import csv
 import os
 from cryptography.fernet import Fernet
 import hashlib
+from dotenv import load_dotenv
+
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("Missing SECRET_KEY in .env file.")
+
+cipher_suite = Fernet(SECRET_KEY.encode())
 
 # account management
 def hash_password(password):
