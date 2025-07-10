@@ -26,29 +26,51 @@
 - 💡 Clean terminal interface with friendly prompts
 
 ## 🛠️ Requirements
-- python 3.x
-- cryptography library
-- To install dependencies:
-    ```bash
-    pip install cryptography
-    ```
+
+To run this project, you need:
+
+- Python 3.x installed on your system
+- The following Python libraries:
+  - `cryptography` — for secure encryption using Fernet
+  - `python-dotenv` — to load environment variables from a `.env` file
+
+### 📦 Install Dependencies
+
+You can install all required libraries at once using:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or install them one by one:
+
+```bash
+pip install cryptography
+pip install python-dotenv
+```
 
 ## 🚀 Installation
 1. Clone the repository or download the files manually
 2. Project Folder Structure:
     ```bash
-    mood_tracker/
-    |
-    ├── main.py
-    ├── user.py
-    ├── mood.py
-    ├── utils.py
-    ├── secret.key
-    |
-    ├── data/
-    │   ├── users.csv
-    │   └── moods/
-    │       └── username_entries.csv
+        mood_tracker/
+        │
+        ├── mood_tracker/            
+        │   ├── __init__.py
+        │   ├── main.py              
+        │   ├── mood.py
+        │   ├── user.py
+        │   └── utils.py
+        │
+        ├── data/
+        │   ├── users.csv
+        │   └── moods/
+        │       └── username_entries.csv
+        ├── .env                    
+        ├── run.py                  
+        ├── requirements.txt
+        ├── README.md
+
     ```
 3. Run the application:
     ```bash
@@ -118,5 +140,4 @@
 Created by **Fatima Pura** ✨  
 >A first-year Computer Science student currently building a strong foundation in Python. 
 
-## ⚖️ License
-This project is licensed under the **[MIT License](https://opensource.org/licenses/MIT)** - see the [LICENSE](LICENSE) file for details.
+
