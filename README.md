@@ -5,8 +5,7 @@
   <a href="#-requirements">🛠️ Requirements</a> •
   <a href="#-installation">🚀 Installation</a> •
   <a href="#-usage">🧪 Usage</a> •
-  <a href="#-credits">👥 Credits</a> •
-  <a href="#-license">⚖️ License</a>
+  <a href="#-credits">👥 Credits</a> 
 </h3>
 
 <h1 align="center">
