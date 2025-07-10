@@ -32,6 +32,5 @@ def load_key():
             f.write(key)
         return key
 
-key = load_key()
-cipher_suite = Fernet(key)
+
 
