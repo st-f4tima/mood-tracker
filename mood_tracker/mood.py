@@ -112,22 +112,30 @@ class Entry:
     
     def delete_account(self):
         filename = f'data/users.csv'
+        del_entries = f'data/moods/{self.user_id}_entries.csv'
         users_data = []
         username_to_delete = self.user_id
+        user_found = False
 
         with open(filename, 'r', newline='') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                if row[0] != username_to_delete:
-                    users_data.append(row)
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] != username_to_delete:
+                        users_data.append(row)
+                    else:
+                        user_found = True
 
-        with open(filename, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(users_data)
-        
-        print(f"\nDeleted account with username: {username_to_delete}")
-        quit()
-
+        if user_found:
+            with open(filename, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(users_data)
+                
+            if os.path.exists(del_entries):
+                os.remove(del_entries)
+            print(f"\nDeleted account with username: {username_to_delete}")
+            quit()
+        else:
+            print(f"User '{self.user_id}' not found.")
 
 
 def clear_screen():
@@ -269,6 +277,7 @@ def main_menu(user):
                         entry.set_user_id(user)
                         entry.delete_account()
                     else:
+                        input("Press Enter to return to the main menu...")
                         break
                 else:
                     print("Error: Invalid option. Please choose a number between 1 and 2.")
