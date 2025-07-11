@@ -109,6 +109,25 @@ class Entry:
             return None
 
         return sum(mood_values) / len(mood_values)
+    
+    def delete_account(self):
+        filename = f'data/users.csv'
+        users_data = []
+        username_to_delete = self.user_id
+
+        with open(filename, 'r', newline='') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if row[0] != username_to_delete:
+                    users_data.append(row)
+
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(users_data)
+        
+        print(f"\nDeleted account with username: {username_to_delete}")
+        quit()
+
 
 
 def clear_screen():
@@ -124,7 +143,7 @@ def main_menu(user):
         print("2. View all mood entries")
         print("3. Get average mood")
         print("4. Manage Account")
-        print("4. Quit")
+        print("5. Quit")
 
         while True: 
             choice = input('Enter your choice (1-4): ').strip()
@@ -234,18 +253,25 @@ def main_menu(user):
                 input("Press Enter to return to the main menu...")
         
         elif choice == '4':
-            while True:
-                clear_screen()
-                print("\n─────────────👤 Manage Account 👤─────────────\n")
-                print('1. Edit Account')
-                print('2. Delete Account')
-                sub_choice = input('\nEnter your choice (1-2): ').strip()
+            clear_screen()
+            print("\n─────────────👤 Manage Account 👤─────────────\n")
+            print('1. Edit Account')
+            print('2. Delete Account')
 
+            while True:
+                sub_choice = input('\nEnter your choice (1-2): ').strip()
                 if sub_choice == '1':
-                    break
+                    pass
                 elif sub_choice == '2':
-                    break
+                    user_choice = input("\nAre you sure you want to delete your account? (yes/no): ").strip().lower()
+                    if user_choice == 'yes':
+                        entry = Entry("","","")
+                        entry.set_user_id(user)
+                        entry.delete_account()
+                    else:
+                        break
                 else:
+                    print("Error: Invalid option. Please choose a number between 1 and 2.")
                     continue
 
         elif choice == '5':
