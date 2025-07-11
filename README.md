@@ -66,14 +66,15 @@ pip install python-dotenv
         │   └── moods/
         │       └── username_entries.csv
         ├── .env                    
-        ├── run.py                  
-        ├── requirements.txt
+        ├── .gitattributes
+        ├── .gitignore                   
         ├── README.md
-
+        ├── requirements.txt
+        ├── run.py 
     ```
 3. Run the application:
     ```bash
-    python main.py
+    python run.py
     ```
 
 ## 🧪 Usage
@@ -101,9 +102,10 @@ pip install python-dotenv
     1. Set mood today
     2. View all mood entries
     3. Get average mood
-    4. Quit
+    4. Delete account
+    5. Quit
 
-    Enter your choice (1-4):
+    Enter your choice (1-5):
     ```
 3. Set your mood for today.
     ```bash

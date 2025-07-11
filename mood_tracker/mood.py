@@ -136,8 +136,7 @@ class Entry:
             quit()
         else:
             print(f"User '{self.user_id}' not found.")
-
-
+    
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -150,12 +149,12 @@ def main_menu(user):
         print("1. Set mood today")
         print("2. View all mood entries")
         print("3. Get average mood")
-        print("4. Manage Account")
+        print("4. Delete account")
         print("5. Quit")
 
         while True: 
-            choice = input('Enter your choice (1-4): ').strip()
-            if choice.isdigit() and 1 <= int(choice) <= 4:
+            choice = input('Enter your choice (1-5): ').strip()
+            if choice.isdigit() and 1 <= int(choice) <= 5:
                 break
             else:
                 print("Error: Invalid option. Please choose a number between 1 and 5.\n")
@@ -262,26 +261,17 @@ def main_menu(user):
         
         elif choice == '4':
             clear_screen()
-            print("\n─────────────👤 Manage Account 👤─────────────\n")
-            print('1. Edit Account')
-            print('2. Delete Account')
-
+            print("\n─────────────👤 Manage Account 👤─────────────")
+            user_choice = input("\nAre you sure you want to delete your account? (yes/no): ").strip().lower()
             while True:
-                sub_choice = input('\nEnter your choice (1-2): ').strip()
-                if sub_choice == '1':
-                    pass
-                elif sub_choice == '2':
-                    user_choice = input("\nAre you sure you want to delete your account? (yes/no): ").strip().lower()
-                    if user_choice == 'yes':
-                        entry = Entry("","","")
-                        entry.set_user_id(user)
-                        entry.delete_account()
-                    else:
-                        input("Press Enter to return to the main menu...")
-                        break
+                if user_choice == 'yes':
+                    entry = Entry("","","")
+                    entry.set_user_id(user)
+                    entry.delete_account()
                 else:
-                    print("Error: Invalid option. Please choose a number between 1 and 2.")
-                    continue
+                    print("\nDeleting account unsuccessful.")
+                    input("Press Enter to return to the main menu...")
+                    break
 
         elif choice == '5':
             print(f"\nThank you for using Mood Tracker, {user}. Goodbye!")
