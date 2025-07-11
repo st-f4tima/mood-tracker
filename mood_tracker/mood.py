@@ -123,6 +123,7 @@ def main_menu(user):
         print("1. Set mood today")
         print("2. View all mood entries")
         print("3. Get average mood")
+        print("4. Manage Account")
         print("4. Quit")
 
         while True: 
@@ -231,8 +232,23 @@ def main_menu(user):
                 print("──────────────────────────────────────────────\n")
 
                 input("Press Enter to return to the main menu...")
-
+        
         elif choice == '4':
+            while True:
+                clear_screen()
+                print("\n─────────────👤 Manage Account 👤─────────────\n")
+                print('1. Edit Account')
+                print('2. Delete Account')
+                sub_choice = input('\nEnter your choice (1-2): ').strip()
+
+                if sub_choice == '1':
+                    break
+                elif sub_choice == '2':
+                    break
+                else:
+                    continue
+
+        elif choice == '5':
             print(f"\nThank you for using Mood Tracker, {user}. Goodbye!")
             quit()
 
