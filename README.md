@@ -135,7 +135,7 @@ pip install python-dotenv
     - Summary with an arrow pointer and a motivational message based on your mood history.
 
 6. Quit the App
-    - Choose option 4 or press Ctrl + C to stop the program
+    - Choose option 5 or press Ctrl + C to stop the program
 
 ## 👥 Credits
 Created by **Fatima Pura** ✨  
