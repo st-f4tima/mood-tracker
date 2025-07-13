@@ -137,6 +137,29 @@ class Entry:
         else:
             print(f"User '{self.user_id}' not found.")
     
+    def delete_entry(self, entry_del):
+        filename = f'data/moods/{self.user_id}_entries.csv'
+        user_entries = []
+        entry_found = False
+
+        with open(filename, 'r', newline='') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if row != row[entry_del - 1]:
+                    user_entries.append(row)
+                else:
+                    entry_found = True
+        
+        if entry_found:
+            with open(filename, 'w', newline=''):
+                writer = csv.writer(file)
+                writer.writerows(user_entries)
+
+                print(f'Deleted entry no. {entry_del}')
+        else:
+            print(f'Entry no. {entry_del} not found')
+        
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -148,13 +171,14 @@ def main_menu(user):
         print("\nChoose an option:")
         print("1. Set mood today")
         print("2. View all mood entries")
-        print("3. Get average mood")
-        print("4. Delete account")
-        print("5. Quit")
+        print('3. Delete an entry')
+        print("4. Get average mood")
+        print("5. Delete account")
+        print("6. Quit")
 
         while True: 
-            choice = input('Enter your choice (1-5): ').strip()
-            if choice.isdigit() and 1 <= int(choice) <= 5:
+            choice = input('Enter your choice (1-6): ').strip()
+            if choice.isdigit() and 1 <= int(choice) <= 6:
                 break
             else:
                 print("Error: Invalid option. Please choose a number between 1 and 5.\n")
@@ -209,8 +233,18 @@ def main_menu(user):
             entry.set_user_id(user)
             entry.view_all()
             input("\nPress Enter to return to the main menu...")
-
+        
         elif choice == '3':
+            clear_screen()
+            print("\n─────────────📘 All Mood Entries 📘─────────────\n")
+            entry = Entry("","","")
+            entry.set_user_id(user)
+            entry.view_all()
+
+            del_entry = int(input('\nSelect the number of the entry you want to delete: '))
+            entry.delete_entry(del_entry)
+
+        elif choice == '4':
             clear_screen()
             print("\n─────────────📈📊 Mood Summary 📈📊─────────────\n")
             
@@ -259,7 +293,7 @@ def main_menu(user):
 
                 input("Press Enter to return to the main menu...")
         
-        elif choice == '4':
+        elif choice == '5':
             clear_screen()
             print("\n─────────────👤 Manage Account 👤─────────────")
             user_choice = input("\nAre you sure you want to delete your account? (yes/no): ").strip().lower()
@@ -273,7 +307,7 @@ def main_menu(user):
                     input("Press Enter to return to the main menu...")
                     break
 
-        elif choice == '5':
+        elif choice == '6':
             print(f"\nThank you for using Mood Tracker, {user}. Goodbye!")
             quit()
 
