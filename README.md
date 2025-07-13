@@ -101,11 +101,12 @@ pip install python-dotenv
     Choose an option:
     1. Set mood today
     2. View all mood entries
-    3. Get average mood
-    4. Delete account
-    5. Quit
+    3. Delete an entry
+    4. Get average mood
+    5. Delete account
+    6. Quit
 
-    Enter your choice (1-5):
+    Enter your choice (1-6): 
     ```
 3. Set your mood for today.
     ```bash
@@ -127,14 +128,19 @@ pip install python-dotenv
     Mood entry saved successfully!
     Press Enter to return to the main menu...
     ```
-
 4. View Mood Entries
     - Past moods will be listed from the encrypted CSV file.
 
-5. See Your Average Mood
+5. Delete an Entry
+    - Remove a specific mood entry by selecting its entry number.
+
+6. See Your Average Mood
     - Summary with an arrow pointer and a motivational message based on your mood history.
 
-6. Quit the App
+7. Delete Account
+    - Permanently remove all your mood data.
+
+8. Quit the App
     - Choose option 5 or press Ctrl + C to stop the program
 
 ## 👥 Credits
