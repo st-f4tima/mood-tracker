@@ -63,11 +63,37 @@ class Entry:
                     print(f"🗨️   Message: {decrypted_row[3]}\n")
                     print("-" * 48)
                     found_any = True
+                    return found_any
                 except Exception as e:
                     print(f"❌ Failed to decrypt entry #{idx}: {e}")
 
             if not found_any:
                 print("📭 No valid mood entries to display.")
+                return found_any
+    
+            
+    def delete_entry(self, entry_del):
+        filename = f'data/moods/{self.user_id}_entries.csv'
+        user_entries = []
+        entry_found = False
+
+        with open(filename, 'r', newline='') as file:
+            reader = csv.reader(file)
+            for index, row in enumerate(reader, start=1):
+                if index != entry_del:
+                    user_entries.append(row)
+                else:
+                    entry_found = True
+        
+        if entry_found:
+            with open(filename, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(user_entries)
+                print(f'Deleted entry no. {entry_del}')
+                input("Press Enter to return to the main menu...")
+        else:
+            print(f'\nEntry no. {entry_del} not found')
+            input("Press Enter to return to the main menu...")
 
 
     def get_average_mood(self):
@@ -137,28 +163,6 @@ class Entry:
         else:
             print(f"User '{self.user_id}' not found.")
     
-    def delete_entry(self, entry_del):
-        filename = f'data/moods/{self.user_id}_entries.csv'
-        user_entries = []
-        entry_found = False
-
-        with open(filename, 'r', newline='') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                if row != row[entry_del - 1]:
-                    user_entries.append(row)
-                else:
-                    entry_found = True
-        
-        if entry_found:
-            with open(filename, 'w', newline=''):
-                writer = csv.writer(file)
-                writer.writerows(user_entries)
-
-                print(f'Deleted entry no. {entry_del}')
-        else:
-            print(f'Entry no. {entry_del} not found')
-        
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -235,14 +239,25 @@ def main_menu(user):
             input("\nPress Enter to return to the main menu...")
         
         elif choice == '3':
-            clear_screen()
-            print("\n─────────────📘 All Mood Entries 📘─────────────\n")
             entry = Entry("","","")
             entry.set_user_id(user)
-            entry.view_all()
-
-            del_entry = int(input('\nSelect the number of the entry you want to delete: '))
-            entry.delete_entry(del_entry)
+            
+            while True:
+                clear_screen()
+                print("\n─────────────📘 All Mood Entries 📘─────────────\n")
+                if entry.view_all():
+                    del_entry = input('\nSelect the number of the entry you want to delete: ')
+                    if del_entry.isdigit():
+                        entry.delete_entry(int(del_entry))
+                        break
+                    else:
+                        print('\nPlease enter a valid number.')
+                        input("Press Enter to try again...")
+                        
+                else:
+                    input("\nPress Enter to return to the main menu...")
+                    break
+                    
 
         elif choice == '4':
             clear_screen()
